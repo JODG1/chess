@@ -49,9 +49,53 @@ public class Piece {
     // TO BE IMPLEMENTED!
     //return a list of every square that is "controlled" by this piece. A square is controlled
     //if the piece capture into it legally.
+
+    //It takes in the square array of board and the starting square of the peice
+    //Post condition- Returns an array list with the squares that can be captured by the rook
     public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
-     return null;
-    }
+      ArrayList <Square> controlledArrayList = new ArrayList<Square>();
+      for (int col = start.getCol()+1; col<8;col++){
+        if(board[start.getRow()][col].isOccupied()){
+          controlledArrayList.add(board[start.getRow()][col]);
+          break;
+          
+        }
+        else{
+          controlledArrayList.add(board[start.getRow()][col]);
+        }
+      }
+      for (int colB = start.getCol()+1; colB>0;colB--){
+        if(board[start.getRow()][colB].isOccupied()){
+          controlledArrayList.add(board[start.getRow()][colB]);
+          break;
+        }
+        else{
+          controlledArrayList.add(board[start.getRow()][colB]);
+        }
+      }
+      for (int rowB = start.getCol()+1; rowB>0;rowB--){
+        if(board[rowB][start.getCol()].isOccupied()){
+          controlledArrayList.add(board[rowB][start.getCol()]);
+          break;
+    
+        }
+        else{
+          controlledArrayList.add(board[rowB][start.getCol()]);
+        }
+      }
+      for (int row = start.getRow()+1; row<8;row++){
+        if(board[row][start.getCol()].isOccupied()){
+          controlledArrayList.add(board[row][start.getCol()]);
+          break;
+        }
+        else{
+          controlledArrayList.add(board[row][start.getCol()]);
+        }
+      }
+      
+    return controlledArrayList;
+  }
+     
     
 
     //TO BE IMPLEMENTED!
@@ -60,7 +104,73 @@ public class Piece {
     //returns an arraylist of squares which are legal to move to
     //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
     //going to score any points.
+    //PRECONDITION This function takes the current board as an input as well the peices current ssquare 
+    //Postcondition it retuns an array list that has every possible move for the rook
     public ArrayList<Square> getLegalMoves(Board b, Square start){
-    	return null;
+      // THE ROOK SACRIFICE: moves in lines up and down and side to side and cant jump
+      
+     Square [][] board = b.getSquareArray();
+      ArrayList<Square> spaces  = new ArrayList<Square>();
+      //right
+        for (int col = start.getCol()-1; col<8;col++){
+          if(board[start.getRow()][col].isOccupied()){
+            if(board[start.getRow()][col].getOccupyingPiece().getColor() == color){
+                break;
+            }
+            else{
+            spaces.add(board[start.getRow()][col]);
+            break;
+            }
+          }
+          else{
+            System.out.println("going right");
+            spaces.add(board[start.getRow()][col]);
+          }
+        }
+        // //left
+        for (int colB = start.getCol()-1; colB>=0;colB--){
+          if(board[start.getRow()][colB].isOccupied()){
+            if(board[start.getRow()][colB].getOccupyingPiece().getColor() == color){
+              break;
+          }
+        
+            spaces.add(board[start.getRow()][colB]);
+            break;
+      
+          }
+          else{
+            spaces.add(board[start.getRow()][colB]);
+          }
+        }
+        //up
+        for (int rowB = start.getRow()-1; rowB>=0;rowB--){
+          if(board[rowB][start.getCol()].isOccupied()){
+            if(board[rowB][start.getCol()].getOccupyingPiece().getColor() == color){
+              break;
+          }
+        
+            spaces.add(board[rowB][start.getCol()]);
+            break;
+      
+          }
+          else{
+            spaces.add(board[rowB][start.getCol()]);
+          }
+        }
+        // //down
+        for (int row = start.getRow()+1; row<8;row++){
+          if(board[row][start.getCol()].isOccupied()){
+            if(board[row][start.getCol()].getOccupyingPiece().getColor() == color){
+              break;
+          }
+            spaces.add(board[row][start.getCol()]);
+            break;
+          }
+          else{
+            spaces.add(board[row][start.getCol()]);
+          }
+        }
+        
+    	return spaces;
     }
-}
+  }

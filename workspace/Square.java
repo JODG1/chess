@@ -29,7 +29,6 @@ public class Square extends JComponent {
     
     
     public Square(Board b, boolean isWhite, int row, int col) {
-        
         this.b = b;
         this.color = isWhite;
         this.dispPiece = true;
